@@ -6,6 +6,7 @@ terraform {
 }
 
 provider "google-beta" {
+  credentials = file("~/.gcp/ingka-devops-anderslab-dev-4bd81dff518c.json")
   project = "ingka-devops-anderslab-dev"
   region  = "europe-west1"
   zone    = "europe-west1-d"
