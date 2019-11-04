@@ -1,3 +1,10 @@
+terraform {
+  backend "gcs" {
+    bucket  = "tf-state-tapir"
+    prefix  = "dev"
+  }
+}
+
 provider "google-beta" {
   project = "ingka-devops-anderslab-dev"
   region  = "europe-west1"
