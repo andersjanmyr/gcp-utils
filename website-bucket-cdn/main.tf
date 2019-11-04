@@ -1,15 +1,8 @@
-provider "google" {
-  project = "ingka-devops-anderslab-dev"
-  region  = "europe-west1"
-  zone    = "europe-west1-d"
-}
-
 provider "google-beta" {
   project = "ingka-devops-anderslab-dev"
   region  = "europe-west1"
   zone    = "europe-west1-d"
 }
-
 
 variable "name" {
   default = "tapir"
@@ -24,6 +17,7 @@ variable "dns_zone" {
 }
 
 resource "google_storage_bucket" "bucket" {
+  provider = "google-beta"
   name = var.name
   location = "EU"
   bucket_policy_only = true
@@ -36,12 +30,14 @@ resource "google_storage_bucket" "bucket" {
 }
 
 resource "google_storage_bucket_object" "index" {
+  provider = "google-beta"
   bucket = "${google_storage_bucket.bucket.name}"
   name   = "index.html"
   source = "./index.html"
 }
 
 resource "google_storage_bucket_iam_binding" "binding" {
+  provider = "google-beta"
   bucket = "${google_storage_bucket.bucket.name}"
   role = "roles/storage.objectViewer"
 
@@ -51,16 +47,19 @@ resource "google_storage_bucket_iam_binding" "binding" {
 }
 
 resource "google_compute_backend_bucket" "backend_bucket" {
+  provider = "google-beta"
   name = "${var.name}-bb"
   bucket_name = "${google_storage_bucket.bucket.name}"
   enable_cdn = true
 }
 
 resource "google_compute_global_address" "ga" {
+  provider = "google-beta"
   name = "${var.name}-ip"
 }
 
 resource "google_dns_record_set" "dns_record" {
+  provider = "google-beta"
   name = "${var.name}.${var.domain}."
   type = "A"
   ttl = 300
