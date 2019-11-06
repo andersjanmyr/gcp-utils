@@ -114,7 +114,7 @@ resource "google_compute_target_https_proxy" "proxy" {
 resource "google_compute_global_forwarding_rule" "rule" {
   provider = "google-beta"
   name = "${var.name}-forwarding-rule"
-  ip_address = google_compute_global_address.ga.self_link
+  ip_address = google_compute_global_address.ga.address
   target = google_compute_target_https_proxy.proxy.self_link
   port_range = "443"
 
