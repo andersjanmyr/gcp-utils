@@ -24,20 +24,6 @@ variable "dns_zone" {
   default = "ingka-janmyr-com"
 }
 
-resource "google_project_iam_audit_config" "project" {
-  project = "ingka-devops-anderslab-dev"
-  service = "allServices"
-  audit_log_config {
-    log_type = "ADMIN_READ"
-  }
-  audit_log_config {
-    log_type = "DATA_WRITE"
-  }
-  audit_log_config {
-    log_type = "DATA_READ"
-  }
-}
-
 
 resource "google_storage_bucket" "bucket" {
   provider = "google-beta"
